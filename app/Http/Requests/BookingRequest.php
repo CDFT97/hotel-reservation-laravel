@@ -24,7 +24,7 @@ class BookingRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $data = [
             "client_id" => 'required|exists:clients,id',
             "hotel_id" => 'required|exists:hotels,id',
             "arrival_date" => 'required|date',
@@ -33,6 +33,12 @@ class BookingRequest extends FormRequest
             "amount" => 'required|numeric',
             "guests" => 'required',
         ];
+
+        if($this->method() === "PUT") {
+            $data["status"] = 'required|in:'.implode(",", array_keys(Booking::STATUS));
+        }
+
+        return $data;
     }
 
     public function messages()

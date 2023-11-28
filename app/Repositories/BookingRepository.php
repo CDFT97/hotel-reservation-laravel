@@ -10,4 +10,9 @@ class BookingRepository extends BaseRepository
     {
         parent::__construct($booking);
     }
+
+    public function getOrderingBy(string $field, string $direction = 'asc')
+    {
+        return $this->model->orderBy($field, $direction)->get();
+    }
 }

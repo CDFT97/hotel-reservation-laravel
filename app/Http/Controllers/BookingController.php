@@ -15,6 +15,13 @@ class BookingController extends Controller
     {
         $this->bookingRepository = $bookingRepository;
     }
+
+    public function index() 
+    {
+        $bookings = $this->bookingRepository->getOrderingBy("id", "desc");
+        return response()->json($bookings,Response::HTTP_OK);
+    }
+
     public function store(BookingRequest $request)
     {
         $booking = new Booking([
@@ -33,13 +40,36 @@ class BookingController extends Controller
         return response()->json($booking,Response::HTTP_CREATED);
     }
 
-    public function update(Request $request, Booking $booking)
+    public function update(BookingRequest $request, Booking $booking)
     {
-        //
+        $booking->fill($request->validated());
+        $this->bookingRepository->save($booking);
+        return response()->json($booking,Response::HTTP_OK);
     }
 
-    public function destroy(Booking $booking)
+    public function search(Request $request)
     {
-        //
+        $query = Booking::where("hotel_id", $request->hotel_id);
+        if($request->arrival_date) {
+            $query->where("arrival_date", $request->arrival_date);
+        }
+
+        if($request->booking_id) {
+            $query->where("id", $request->booking_id);
+        }
+
+        if ($request->client_name) {
+            $query->whereHas("client", function ($q) use ($request) {
+                $q->where("name", "like", "%{$request->client_name}%");
+            });
+        }
+
+        if ($request->client_dni) {
+            $query->whereHas("client", function ($q) use ($request) {
+                $q->where("dni", $request->client_name);
+            });
+        }
+
+        return response()->json($query->get(), Response::HTTP_OK);
     }
 }
