@@ -10,4 +10,9 @@ class HotelRepository extends BaseRepository
     {
         parent::__construct($hotel);
     }
+
+    public function getFirst()
+    {
+        return $this->model->first();
+    }
 }

@@ -22,6 +22,12 @@ class HotelController extends Controller
         return response()->json($hotel, Response::HTTP_CREATED);
     }
 
+    public function getHotel()
+    {
+        $hotel = $this->hotelRepository->getFirst();
+        return response()->json($hotel, Response::HTTP_OK);
+    }
+
     public function update(Request $request, Hotel $hotel)
     {
         //
