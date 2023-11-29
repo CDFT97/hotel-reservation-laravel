@@ -29,7 +29,7 @@ class BookingRequest extends FormRequest
             "hotel_id" => 'required|exists:hotels,id',
             "arrival_date" => 'required|date',
             "departure_date" => 'required|date',
-            "nights_number" => 'required|numeric',
+            "nights_number" => 'required|integer',
             "amount" => 'required|numeric',
             "guests" => 'required',
         ];

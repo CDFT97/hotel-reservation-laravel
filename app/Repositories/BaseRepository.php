@@ -28,4 +28,9 @@ class BaseRepository
         return $model->save();
     }
 
+    public function destroy(Model $model) 
+    {
+        return $model->delete();
+    }
+
 }

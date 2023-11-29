@@ -23,10 +23,15 @@ class ClientRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             "name" => 'required|string',
             "dni" => 'required|string|unique:clients,dni',
         ];
+        if($this->isMethod('PUT')) {
+            $rules['dni'] = "required|unique:clients,dni,{$this->id}";
+        }
+
+        return $rules;
     }
 
     public function messages()

@@ -22,6 +22,14 @@ class BookingController extends Controller
         return response()->json($bookings,Response::HTTP_OK);
     }
 
+    public function show(int $booking_id)
+    {
+        $booking = $this->bookingRepository->get($booking_id);
+        if($booking) {
+            return response()->json($booking,Response::HTTP_OK);
+        }
+        return response()->json(["message"=>"Booking not found"], Response::HTTP_NOT_FOUND);
+    }
     public function store(BookingRequest $request)
     {
         $booking = new Booking([
