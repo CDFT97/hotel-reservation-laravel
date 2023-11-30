@@ -1,9 +1,18 @@
 # Hotel Reservation Backend
 
-## Project setup
+## Project setup - Install composer:
 ```
-run these commands:
 composer install
+```
+
+## Project setup - Create tables :
+```
 php artisan migrate
+```
+
+## Project activate server :
+```
 php artisan serve
 ```
+
+
