@@ -44,7 +44,7 @@ class ClientController extends Controller
             return response()->json([], Response::HTTP_NO_CONTENT);
         } catch (\Throwable $th) {
             Log::error($th);
-            return response()->json(['message' => $th->getMessage(),], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(['message' => "No se puede eliminar ya que posee reservaciones",], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
