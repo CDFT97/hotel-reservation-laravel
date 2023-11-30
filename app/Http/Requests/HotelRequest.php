@@ -23,15 +23,19 @@ class HotelRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             "name" => "required|string",
             "address" => "required|string",
             "country" => "required|string",
             "state" => "required|string",
             "city" => "required|string",
             "nit" => "required|string",
-            "phone" => "string",
         ];
+        if($this->phone != ""){
+            $rules['phone'] = 'string';
+        }
+
+        return $rules;
     }
 
     public function messages()
