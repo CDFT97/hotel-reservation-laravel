@@ -59,7 +59,7 @@ class BookingController extends Controller
     {
         $query = Booking::where("hotel_id", $request->hotel_id);
         if($request->arrival_date) {
-            $query->where("arrival_date", $request->arrival_date);
+            $query->whereDate("arrival_date", $request->arrival_date);
         }
 
         if($request->booking_id) {
@@ -74,7 +74,7 @@ class BookingController extends Controller
 
         if ($request->client_dni) {
             $query->whereHas("client", function ($q) use ($request) {
-                $q->where("dni", $request->client_name);
+                $q->where("dni", $request->client_dni);
             });
         }
 
